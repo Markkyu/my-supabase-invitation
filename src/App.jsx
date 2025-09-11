@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import SetPasswordPage from "./pages/SetPasswordPage";
+import AcceptInvitePage from "./pages/AcceptInvitePage";
 import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/auth/accept-invite" element={<SetPasswordPage />} />
+        <Route path="/auth/accept-invite" element={<AcceptInvitePage />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
