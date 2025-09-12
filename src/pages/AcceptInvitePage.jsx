@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import supabase from "../config/supabase";
+import { Button } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
 
 export default function AcceptInvitePage() {
   const [password, setPassword] = useState("");
@@ -12,7 +14,7 @@ export default function AcceptInvitePage() {
       setSession(session);
       if (!session) {
         setMessage(
-          "❌ Invalid or missing invite link. Please use the invitation email."
+          "Invalid or missing invite link. Please use the invitation email."
         );
       }
     });
@@ -37,11 +39,11 @@ export default function AcceptInvitePage() {
 
     const { error } = await supabase.auth.updateUser({ password });
     if (error) setMessage(error.message);
-    else setMessage("✅ Password updated! You can now log in.");
+    else setMessage("Password updated! You can now log in.");
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="min-h-screen flex flex-col gap-5 items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
           Accept Invite
@@ -76,6 +78,15 @@ export default function AcceptInvitePage() {
           <p className="mt-4 text-center text-sm text-gray-700">{message}</p>
         )}
       </div>
+      <Button
+        variant="contained"
+        color="info"
+        href="/login"
+        sx={{ textTransform: "none" }}
+        startIcon={<LoginIcon />}
+      >
+        Go to Login
+      </Button>
     </div>
   );
 }

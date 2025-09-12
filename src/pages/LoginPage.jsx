@@ -15,18 +15,19 @@ export default function LoginPage() {
     if (error) {
       setMessage(error.message);
     } else {
-      setMessage("✅ Logged in successfully!");
-      // Optional: redirect to dashboard
-      // window.location.href = "/dashboard";
+      setMessage("Account is found inside of Timelyfy!");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Login
+        <h2 className="text-2xl font-bold text-center text-gray-800 ">
+          Test Login
         </h2>
+        <p className="mb-6 text-center text-gray-600">
+          Check if account is inside of Timelyfy's system.
+        </p>
 
         <form onSubmit={handleLogin} className="space-y-4">
           <input
