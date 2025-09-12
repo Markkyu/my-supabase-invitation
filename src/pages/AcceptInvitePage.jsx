@@ -82,10 +82,10 @@ export default function AcceptInvitePage() {
         variant="contained"
         color="info"
         href="/login"
-        sx={{ textTransform: "none" }}
+        sx={{ textTransform: "none", fontWeight: "bold" }}
         startIcon={<LoginIcon />}
       >
-        Go to Login
+        Go to check account
       </Button>
     </div>
   );

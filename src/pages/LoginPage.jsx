@@ -1,21 +1,31 @@
 import { useState } from "react";
 import supabase from "../config/supabase";
+import Button from "@mui/material/Button";
 
-export default function LoginPage() {
+// Login Page
+const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
     });
+
     if (error) {
+      setError;
       setMessage(error.message);
+      setLoading(false);
     } else {
       setMessage("Account is found inside of Timelyfy!");
+      setLoading(false);
     }
   };
 
@@ -23,15 +33,22 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
         <h2 className="text-2xl font-bold text-center text-gray-800 ">
-          Test Login
+          Check Timelyfy Account
         </h2>
         <p className="mb-6 text-center text-gray-600">
           Check if account is inside of Timelyfy's system.
         </p>
 
         <form onSubmit={handleLogin} className="space-y-4">
+          {/* Username input form */}
+          <label htmlFor="username" className="text-gray-600">
+            Username
+          </label>
           <input
+            id="username"
             type="email"
+            autoComplete="off"
+            autoFocus
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
@@ -39,8 +56,13 @@ export default function LoginPage() {
             required
           />
 
+          {/* Password input form */}
+          <label htmlFor="password" className="text-gray-600">
+            Password
+          </label>
           <input
-            type="password"
+            id="password"
+            type={showPassword ? "text" : "password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter your password"
@@ -48,18 +70,39 @@ export default function LoginPage() {
             required
           />
 
-          <button
+          <div className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+              className="rounded-sm"
+            />
+            <label className="text-gray-600">Show Password</label>
+          </div>
+
+          <Button
             type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+            variant="contained"
+            fullWidth={true}
+            color="info"
+            loading={loading}
+            loadingPosition="end"
+            sx={{
+              textTransform: "none",
+              fontWeight: "bold",
+              borderRadius: "8px",
+            }}
           >
-            Login
-          </button>
+            Find Account
+          </Button>
         </form>
 
         {message && (
-          <p className="mt-4 text-center text-sm text-gray-700">{message}</p>
+          <p className="mt-4 text-center text-md text-gray-700 ">{message}</p>
         )}
       </div>
     </div>
   );
-}
+};
+
+export default LoginPage;
