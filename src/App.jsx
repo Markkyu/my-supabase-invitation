@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import AcceptInvitePage from "./pages/AcceptInvitePage";
 import LoginPage from "./pages/LoginPage";
 
@@ -8,6 +8,7 @@ const App = () => {
       <Routes>
         <Route path="/auth/accept-invite" element={<AcceptInvitePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
   );

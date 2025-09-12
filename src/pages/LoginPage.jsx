@@ -20,7 +20,6 @@ const LoginPage = () => {
     });
 
     if (error) {
-      setError;
       setMessage(error.message);
       setLoading(false);
     } else {
