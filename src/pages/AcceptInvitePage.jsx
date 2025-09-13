@@ -7,6 +7,7 @@ export default function AcceptInvitePage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Check if user is signed in from the token in URL
@@ -32,14 +33,24 @@ export default function AcceptInvitePage() {
   }, []);
 
   const handleSetPassword = async () => {
+    setLoading(true);
     if (!session) {
       setMessage("You must access this page from your invitation email.");
+      setLoading(false);
       return;
     }
 
     const { error } = await supabase.auth.updateUser({ password });
-    if (error) setMessage(error.message);
-    else setMessage("Password updated! You can now log in.");
+
+    if (error) {
+      setMessage(error.message);
+      setLoading(false);
+    } else {
+      setMessage(
+        "Password updated! You can now check your account in the system."
+      );
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,12 +73,16 @@ export default function AcceptInvitePage() {
                 placeholder="Enter new password"
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:outline-none"
               />
-              <button
+              <Button
                 onClick={handleSetPassword}
-                className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-200"
+                variant="contained"
+                sx={{ textTransform: "none", fontWeight: "bold" }}
+                fullWidth={true}
+                loading={loading}
+                loadingPosition="end"
               >
                 Save Password
-              </button>
+              </Button>
             </div>
           </>
         ) : (
@@ -81,7 +96,7 @@ export default function AcceptInvitePage() {
       <Button
         variant="contained"
         color="info"
-        href="/login"
+        href="/check-account"
         sx={{ textTransform: "none", fontWeight: "bold" }}
         startIcon={<LoginIcon />}
       >

@@ -7,8 +7,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/auth/accept-invite" element={<AcceptInvitePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/*" element={<Navigate to="/login" />} />
+        <Route path="/check-account" element={<LoginPage />} />
+        <Route path="/*" element={<Navigate to="/check-account" />} />
       </Routes>
     </BrowserRouter>
   );
